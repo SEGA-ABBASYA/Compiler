@@ -188,14 +188,6 @@ namespace Tiny_Compiler
                     FindTokenClass(CurrentLexeme);
                     i = j;
                 }
-                //else if (CurrentChar == '{') // we still in arugements on it 
-                //{
-                //    
-                //    CurrentLexeme += CurrentChar;
-
-                    
-                //}
-                // string
                 else if (CurrentChar == '"')
                 {
                     CurrentLexeme += CurrentChar.ToString();
@@ -214,10 +206,9 @@ namespace Tiny_Compiler
                     i = j - 1;
                     FindTokenClass(CurrentLexeme);
                 }
-                //comment 
-                else if (CurrentChar == '/')
+                else if (CurrentChar == '/') // comment
                 {
-                   Console.WriteLine(CurrentChar);
+                    Console.WriteLine(CurrentChar);
                     CurrentLexeme += CurrentChar;
                     Console.WriteLine(CurrentLexeme);
                     if (j + 1 < SourceCode.Length && SourceCode[j + 1] == '*')
@@ -237,13 +228,32 @@ namespace Tiny_Compiler
                             }
                             CurrentLexeme += CurrentChar.ToString();
                         }
-                    }
-                    
-
+                    }                    
                     i = j;
-                    Console
-                        .WriteLine(CurrentLexeme);
+                    Console.WriteLine(CurrentLexeme);
                     FindTokenClass(CurrentLexeme);
+                }
+                else if (CurrentChar == '-' || CurrentChar == '+')
+                {
+                    CurrentLexeme = CurrentChar.ToString();
+                    j++;
+
+                    if (j < SourceCode.Length && char.IsDigit(SourceCode[j]))
+                    {
+                        while (j < SourceCode.Length && (char.IsDigit(SourceCode[j]) || SourceCode[j] == '.'))
+                        {
+                            CurrentLexeme += SourceCode[j];
+                            j++;
+                        }
+
+                        FindTokenClass(CurrentLexeme);
+                        i = j - 1;
+                    }
+                    else
+                    {
+                        FindTokenClass(CurrentLexeme);
+                        i = j - 1;
+                    }
                 }
 
                 else
