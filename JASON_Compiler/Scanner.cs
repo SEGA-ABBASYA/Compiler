@@ -72,7 +72,7 @@ namespace Tiny_Compiler
 
         public void StartScanning(string SourceCode)
         {
-            
+            SourceCode+=" ";
             for (int i = 0; i < SourceCode.Length; i++)
             {
                 int j = i;
@@ -109,7 +109,14 @@ namespace Tiny_Compiler
                     }
                     if ( CurrentChar >= 'A' && CurrentChar <= 'z')
                     {
-                        CurrentLexeme += CurrentChar;
+                        while(CurrentChar != ' ' || CurrentChar != '\r' || CurrentChar != '\n')
+                        {
+                            CurrentLexeme += CurrentChar;
+                            j++;
+                            if (j == SourceCode.Length)
+                                break;
+                            CurrentChar = SourceCode[j];
+                        }
                         FindTokenClass(CurrentLexeme);
                         i = j;
                     }
@@ -336,12 +343,12 @@ namespace Tiny_Compiler
             bool isComment(string lex)
             {
                 // Check if the lex is a string or not
-                var reg = new Regex(@"\/\*[\s\S]*?\*\/");
+                var reg = new Regex(@"^\/\*[\s\S]*?\*\/$");
                 return reg.IsMatch(lex);
             }
             bool isTstring(string lex)
             {
-                var reg = new Regex(@"""([^""\\]*(\\.[^""\\]*)*)""");
+                var reg = new Regex(@"^""([^""\\]*(\\.[^""\\]*)*)""$");
                 return reg.IsMatch(lex);
             } 
             
