@@ -32,8 +32,6 @@ namespace Tiny_Compiler
 
         public Scanner()
         {
-            //ReservedWords.Add("IF", Token_Class.If);
-            //Operators.Add(".", Token_Class.Dot); and so on
             ReservedWords.Add("int", Token_Class.Int);
             ReservedWords.Add("float", Token_Class.Float);
             ReservedWords.Add("string", Token_Class.ReservedString);
@@ -124,7 +122,6 @@ namespace Tiny_Compiler
                 }
                 else if (CurrentChar == '&')
                 {
-                    Console.WriteLine("&");
                     j++;
                     CurrentLexeme += CurrentChar;
                     if (SourceCode.Length == 1)
@@ -134,7 +131,6 @@ namespace Tiny_Compiler
                     }
                     if (j == SourceCode.Length)
                     {
-                        Console.WriteLine("break");
                         break;
                     }
                     
@@ -143,7 +139,7 @@ namespace Tiny_Compiler
                     {
                         CurrentLexeme += CurrentChar;
                     }
-                    Console.WriteLine("Find");
+                    
                     FindTokenClass(CurrentLexeme);
                     i = j ;
                 }
@@ -202,15 +198,14 @@ namespace Tiny_Compiler
                         }
                         CurrentLexeme += CurrentChar.ToString();
                     }
-                    Console.WriteLine(CurrentLexeme);
+                    
                     i = j - 1;
                     FindTokenClass(CurrentLexeme);
                 }
                 else if (CurrentChar == '/') // comment
                 {
-                    Console.WriteLine(CurrentChar);
                     CurrentLexeme += CurrentChar;
-                    Console.WriteLine(CurrentLexeme);
+                    
                     if (j + 1 < SourceCode.Length && SourceCode[j + 1] == '*')
                     {
                         j++;
@@ -230,7 +225,7 @@ namespace Tiny_Compiler
                         }
                     }                    
                     i = j;
-                    Console.WriteLine(CurrentLexeme);
+
                     FindTokenClass(CurrentLexeme);
                 }
                 else if (CurrentChar == '-' || CurrentChar == '+')
@@ -268,7 +263,7 @@ namespace Tiny_Compiler
             }
             void FindTokenClass(string Lex)
             {
-                Console.WriteLine(Lex);
+                
                 Token_Class TC;
                 Token Tok = new Token();
                 Tok.lex = Lex;
@@ -276,7 +271,7 @@ namespace Tiny_Compiler
                 //Is it a reserved word?
                 if (ReservedWords.ContainsKey(Tok.lex))
                 {
-                    Console.WriteLine("Res");
+                    
                     Tok.token_type = ReservedWords[Lex];
                     Tokens.Add(Tok);
 
@@ -284,7 +279,7 @@ namespace Tiny_Compiler
 
                 //Is it an identifier?
                 else  if(isIdentifier(Lex)){
-                    Console.WriteLine("Id");
+                    
                     Tok.token_type=Token_Class.Identifier;
                     Tokens.Add(Tok);
                 }
@@ -292,25 +287,26 @@ namespace Tiny_Compiler
 
                 //Is it a Constant?
                 else if(isConstant(Lex)){
-                    Console.WriteLine("Con");
+                    
                     Tok.token_type=Token_Class.Constant;
                     Tokens.Add(Tok);
                 }
 
                 //Is it an operator?
-                
                 else if (Operators.ContainsKey(Tok.lex))
                 {
-                    Console.WriteLine("Op");
+                    
                     Tok.token_type = Operators[Lex];
                     Tokens.Add(Tok);
 
                 }
+                //Is it a string?
                 else if (isTstring(Tok.lex))
                 {
                     Tok.token_type = Token_Class.String;
                     Tokens.Add(Tok);
                 }
+                //Is it a comment?
                 else if (isComment(Lex))
                 {
                     Tok.token_type = Token_Class.Comment;
@@ -318,8 +314,8 @@ namespace Tiny_Compiler
                 }
                 //Is it an undefined? (Error List)
                 else{
-                    Console.WriteLine("ELSE");
-                     Errors.Error_List.Add(Lex);
+                    
+                    Errors.Error_List.Add(Lex);
                 }
             }
 
@@ -339,7 +335,7 @@ namespace Tiny_Compiler
             }
             bool isComment(string lex)
             {
-                // Check if the lex is a constant (Number) or not.
+                // Check if the lex is a string or not
                 var reg = new Regex(@"\/\*[\s\S]*?\*\/");
                 return reg.IsMatch(lex);
             }
