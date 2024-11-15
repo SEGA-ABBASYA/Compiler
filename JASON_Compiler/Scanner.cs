@@ -64,7 +64,7 @@ namespace Tiny_Compiler
             Operators.Add("-", Token_Class.MinusOp);
             Operators.Add("*", Token_Class.MultiplyOp);
             Operators.Add("/", Token_Class.DivideOp);
-
+            Operators.Add(";", Token_Class.Semicolon);
 
         }
 
@@ -176,7 +176,21 @@ namespace Tiny_Compiler
                 }
                 else if (CurrentChar == '{') // we still in arugements on it 
                 {
+                    //Need To be handled
 
+
+                    //while (CurrentChar != '}')
+                    //{
+                    //    CurrentLexeme += CurrentChar;
+                    //    j++;
+                    //    if (j == SourceCode.Length)
+                    //    {
+                    //        break;
+                    //    }
+                    //    CurrentChar = SourceCode[j];
+                    //}
+                    //FindTokenClass(CurrentLexeme);
+                    //i = j - 1;
                 }
                 
                 else
