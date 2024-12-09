@@ -1,15 +1,15 @@
-E:\projects\[2021-2022] JASON_Compiler_Template\[2021-2022] JASON_Compiler_Template\JASON_Compiler\bin\Debug\JASON_Compiler.exe.config
-E:\projects\[2021-2022] JASON_Compiler_Template\[2021-2022] JASON_Compiler_Template\JASON_Compiler\bin\Debug\JASON_Compiler.exe
-E:\projects\[2021-2022] JASON_Compiler_Template\[2021-2022] JASON_Compiler_Template\JASON_Compiler\bin\Debug\JASON_Compiler.pdb
-E:\projects\[2021-2022] JASON_Compiler_Template\[2021-2022] JASON_Compiler_Template\JASON_Compiler\obj\Debug\Tiny_Compiler.csproj.AssemblyReference.cache
-E:\projects\[2021-2022] JASON_Compiler_Template\[2021-2022] JASON_Compiler_Template\JASON_Compiler\obj\Debug\Tiny_Compiler.csproj.SuggestedBindingRedirects.cache
-E:\projects\[2021-2022] JASON_Compiler_Template\[2021-2022] JASON_Compiler_Template\JASON_Compiler\obj\Debug\Tiny_Compiler.Form1.resources
-E:\projects\[2021-2022] JASON_Compiler_Template\[2021-2022] JASON_Compiler_Template\JASON_Compiler\obj\Debug\Tiny_Compiler.Form2.resources
-E:\projects\[2021-2022] JASON_Compiler_Template\[2021-2022] JASON_Compiler_Template\JASON_Compiler\obj\Debug\JASON_Compiler.Properties.Resources.resources
-E:\projects\[2021-2022] JASON_Compiler_Template\[2021-2022] JASON_Compiler_Template\JASON_Compiler\obj\Debug\Tiny_Compiler.csproj.GenerateResource.cache
-E:\projects\[2021-2022] JASON_Compiler_Template\[2021-2022] JASON_Compiler_Template\JASON_Compiler\obj\Debug\Tiny_Compiler.csproj.CoreCompileInputs.cache
-E:\projects\[2021-2022] JASON_Compiler_Template\[2021-2022] JASON_Compiler_Template\JASON_Compiler\obj\Debug\JASON_Compiler.exe
-E:\projects\[2021-2022] JASON_Compiler_Template\[2021-2022] JASON_Compiler_Template\JASON_Compiler\obj\Debug\JASON_Compiler.pdb
+E:\Parser Template\Parser-Template - Studs Versions\JASON_Compiler\bin\Debug\JASON_Compiler.exe.config
+E:\Parser Template\Parser-Template - Studs Versions\JASON_Compiler\bin\Debug\JASON_Compiler.exe
+E:\Parser Template\Parser-Template - Studs Versions\JASON_Compiler\bin\Debug\JASON_Compiler.pdb
+E:\Parser Template\Parser-Template - Studs Versions\JASON_Compiler\obj\Debug\Tiny_Compiler.csproj.AssemblyReference.cache
+E:\Parser Template\Parser-Template - Studs Versions\JASON_Compiler\obj\Debug\Tiny_Compiler.csproj.SuggestedBindingRedirects.cache
+E:\Parser Template\Parser-Template - Studs Versions\JASON_Compiler\obj\Debug\Tiny_Compiler.Form1.resources
+E:\Parser Template\Parser-Template - Studs Versions\JASON_Compiler\obj\Debug\Tiny_Compiler.Form2.resources
+E:\Parser Template\Parser-Template - Studs Versions\JASON_Compiler\obj\Debug\JASON_Compiler.Properties.Resources.resources
+E:\Parser Template\Parser-Template - Studs Versions\JASON_Compiler\obj\Debug\Tiny_Compiler.csproj.GenerateResource.cache
+E:\Parser Template\Parser-Template - Studs Versions\JASON_Compiler\obj\Debug\Tiny_Compiler.csproj.CoreCompileInputs.cache
+E:\Parser Template\Parser-Template - Studs Versions\JASON_Compiler\obj\Debug\JASON_Compiler.exe
+E:\Parser Template\Parser-Template - Studs Versions\JASON_Compiler\obj\Debug\JASON_Compiler.pdb
 E:\projects\Compiler\JASON_Compiler\bin\Debug\JASON_Compiler.exe.config
 E:\projects\Compiler\JASON_Compiler\bin\Debug\JASON_Compiler.exe
 E:\projects\Compiler\JASON_Compiler\bin\Debug\JASON_Compiler.pdb

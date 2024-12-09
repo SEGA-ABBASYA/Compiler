@@ -12,7 +12,7 @@ public enum Token_Class
     //Reserved words and operators token names
     Main, Int, Float, String, Read, Write, Repeat, Until, If, Elseif, Else, Then, Return, Endl,
     And, Or, Semicolon, Comma, LParanthesis, RParanthesis, AssignmentOp, NotEqualOp, ConditionEqualOp, LessThanOp, GreaterThanOp,
-    PlusOp, MinusOp, MultiplyOp, DivideOp, Identifier, Constant, LPracket, RPracket, End,Comment,ReservedString
+    PlusOp, MinusOp, MultiplyOp, DivideOp, Identifier, Number, LPracket, RPracket, End, Comment, ReservedString/*Datatype*/
 }
 namespace Tiny_Compiler
 {
@@ -69,10 +69,9 @@ namespace Tiny_Compiler
 
 
         }
-
         public void StartScanning(string SourceCode)
         {
-            SourceCode+=" ";
+            SourceCode += " ";
             for (int i = 0; i < SourceCode.Length; i++)
             {
                 int j = i;
@@ -88,7 +87,7 @@ namespace Tiny_Compiler
                     {
                         j++;
                         CurrentLexeme += CurrentChar;
-                        
+
                         if (j == SourceCode.Length)
                             break;
                         CurrentChar = SourceCode[j];
@@ -100,16 +99,16 @@ namespace Tiny_Compiler
                 {
                     while (CurrentChar >= '0' && CurrentChar <= '9' || CurrentChar == '.')
                     {
-                        
+
                         CurrentLexeme += CurrentChar;
                         j++;
                         if (j == SourceCode.Length)
                             break;
                         CurrentChar = SourceCode[j];
                     }
-                    if ( CurrentChar >= 'A' && CurrentChar <= 'z')
+                    if (CurrentChar >= 'A' && CurrentChar <= 'z')
                     {
-                        while(CurrentChar != ' ' || CurrentChar != '\r' || CurrentChar != '\n')
+                        while (CurrentChar != ' ' || CurrentChar != '\r' || CurrentChar != '\n')
                         {
                             CurrentLexeme += CurrentChar;
                             j++;
@@ -120,12 +119,13 @@ namespace Tiny_Compiler
                         FindTokenClass(CurrentLexeme);
                         i = j;
                     }
-                    else {
+                    else
+                    {
                         FindTokenClass(CurrentLexeme);
                         i = j - 1;
                     }
-                    
-                
+
+
                 }
                 else if (CurrentChar == '&')
                 {
@@ -140,15 +140,15 @@ namespace Tiny_Compiler
                     {
                         break;
                     }
-                    
+
                     CurrentChar = SourceCode[j];
                     if (CurrentChar == '&')
                     {
                         CurrentLexeme += CurrentChar;
                     }
-                    
+
                     FindTokenClass(CurrentLexeme);
-                    i = j ;
+                    i = j;
                 }
                 else if (CurrentChar == '|')
                 {
@@ -167,7 +167,7 @@ namespace Tiny_Compiler
                         CurrentLexeme += CurrentChar;
                     }
                     FindTokenClass(CurrentLexeme);
-                    i = j ;
+                    i = j;
                 }
                 else if (CurrentChar == ':')
                 {
@@ -205,14 +205,14 @@ namespace Tiny_Compiler
                         }
                         CurrentLexeme += CurrentChar.ToString();
                     }
-                    
+
                     i = j - 1;
                     FindTokenClass(CurrentLexeme);
                 }
                 else if (CurrentChar == '/') // comment
                 {
                     CurrentLexeme += CurrentChar;
-                    
+
                     if (j + 1 < SourceCode.Length && SourceCode[j + 1] == '*')
                     {
                         j++;
@@ -221,16 +221,16 @@ namespace Tiny_Compiler
                         for (j = j + 1; j < SourceCode.Length; j++)
                         {
                             CurrentChar = SourceCode[j];
-                            if (CurrentChar == '*' && SourceCode[j+1] =='/')
+                            if (CurrentChar == '*' && SourceCode[j + 1] == '/')
                             {
                                 CurrentLexeme += CurrentChar.ToString();
                                 CurrentLexeme += '/';
-                                j+=2;
+                                j += 2;
                                 break;
                             }
                             CurrentLexeme += CurrentChar.ToString();
                         }
-                    }                    
+                    }
                     i = j;
 
                     FindTokenClass(CurrentLexeme);
@@ -270,39 +270,41 @@ namespace Tiny_Compiler
             }
             void FindTokenClass(string Lex)
             {
-                
+
                 Token_Class TC;
                 Token Tok = new Token();
                 Tok.lex = Lex;
-             
+
                 //Is it a reserved word?
                 if (ReservedWords.ContainsKey(Tok.lex))
                 {
-                    
+
                     Tok.token_type = ReservedWords[Lex];
                     Tokens.Add(Tok);
 
                 }
 
                 //Is it an identifier?
-                else  if(isIdentifier(Lex)){
-                    
-                    Tok.token_type=Token_Class.Identifier;
+                else if (isIdentifier(Lex))
+                {
+
+                    Tok.token_type = Token_Class.Identifier;
                     Tokens.Add(Tok);
                 }
 
 
                 //Is it a Constant?
-                else if(isConstant(Lex)){
-                    
-                    Tok.token_type=Token_Class.Constant;
+                else if (isConstant(Lex))
+                {
+
+                    Tok.token_type = Token_Class.Number;
                     Tokens.Add(Tok);
                 }
 
                 //Is it an operator?
                 else if (Operators.ContainsKey(Tok.lex))
                 {
-                    
+
                     Tok.token_type = Operators[Lex];
                     Tokens.Add(Tok);
 
@@ -320,8 +322,9 @@ namespace Tiny_Compiler
                     Tokens.Add(Tok);
                 }
                 //Is it an undefined? (Error List)
-                else{
-                    
+                else
+                {
+
                     Errors.Error_List.Add(Lex);
                 }
             }
@@ -350,8 +353,8 @@ namespace Tiny_Compiler
             {
                 var reg = new Regex(@"^""([^""\\]*(\\.[^""\\]*)*)""$");
                 return reg.IsMatch(lex);
-            } 
-            
+            }
+
         }
     }
 }
