@@ -105,10 +105,11 @@ namespace Tiny_Compiler
                         if (j == SourceCode.Length)
                             break;
                         CurrentChar = SourceCode[j];
-                    }
-                    if (CurrentChar >= 'A' && CurrentChar <= 'z')
+                    } 
+
+                    if ( CurrentChar >= 'A' && CurrentChar <= 'z')
                     {
-                        while (CurrentChar != ' ' || CurrentChar != '\r' || CurrentChar != '\n')
+                        while (CurrentChar != ' ' && CurrentChar != '\r' && CurrentChar != '\n' && !Operators.ContainsKey(CurrentChar.ToString())) 
                         {
                             CurrentLexeme += CurrentChar;
                             j++;
@@ -138,13 +139,18 @@ namespace Tiny_Compiler
                     }
                     if (j == SourceCode.Length)
                     {
+              
                         break;
                     }
 
                     CurrentChar = SourceCode[j];
+
                     if (CurrentChar == '&')
                     {
                         CurrentLexeme += CurrentChar;
+                    }else
+                    {
+                        j--;
                     }
 
                     FindTokenClass(CurrentLexeme);
@@ -165,6 +171,9 @@ namespace Tiny_Compiler
                     if (CurrentChar == '|')
                     {
                         CurrentLexeme += CurrentChar;
+                    }else
+                    {
+                        j--;
                     }
                     FindTokenClass(CurrentLexeme);
                     i = j;
@@ -197,7 +206,7 @@ namespace Tiny_Compiler
                     for (j = j + 1; j < SourceCode.Length; j++)
                     {
                         CurrentChar = SourceCode[j];
-                        if (CurrentChar == '"' || CurrentChar == '\n')
+                        if (CurrentChar == '"' )
                         {
                             CurrentLexeme += CurrentChar.ToString();
                             j++;
@@ -346,12 +355,15 @@ namespace Tiny_Compiler
             bool isComment(string lex)
             {
                 // Check if the lex is a string or not
-                var reg = new Regex(@"^\/\*[\s\S]*?\*\/$");
+                var reg = new Regex(@"^\/\*[\s\S]*\*\/$");
                 return reg.IsMatch(lex);
             }
             bool isTstring(string lex)
             {
-                var reg = new Regex(@"^""([^""\\]*(\\.[^""\\]*)*)""$");
+                //var reg = new Regex(@"^""([^""\\]*(\\.[^""\\]*)*)""$"); //safwa 
+                //var reg = new Regex("^\"\\S*\"$");// tamer 1
+
+                var reg = new Regex("^\"[ \\S]*\"$");
                 return reg.IsMatch(lex);
             }
 
