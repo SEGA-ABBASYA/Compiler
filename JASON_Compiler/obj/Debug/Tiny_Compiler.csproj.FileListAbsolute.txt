@@ -22,3 +22,15 @@ E:\projects\Compiler\JASON_Compiler\obj\Debug\Tiny_Compiler.csproj.GenerateResou
 E:\projects\Compiler\JASON_Compiler\obj\Debug\Tiny_Compiler.csproj.CoreCompileInputs.cache
 E:\projects\Compiler\JASON_Compiler\obj\Debug\JASON_Compiler.exe
 E:\projects\Compiler\JASON_Compiler\obj\Debug\JASON_Compiler.pdb
+C:\Users\ABDELRAHMAN\source\repos\Compiler\JASON_Compiler\bin\Debug\JASON_Compiler.exe.config
+C:\Users\ABDELRAHMAN\source\repos\Compiler\JASON_Compiler\bin\Debug\JASON_Compiler.exe
+C:\Users\ABDELRAHMAN\source\repos\Compiler\JASON_Compiler\bin\Debug\JASON_Compiler.pdb
+C:\Users\ABDELRAHMAN\source\repos\Compiler\JASON_Compiler\obj\Debug\Tiny_Compiler.csproj.AssemblyReference.cache
+C:\Users\ABDELRAHMAN\source\repos\Compiler\JASON_Compiler\obj\Debug\Tiny_Compiler.csproj.SuggestedBindingRedirects.cache
+C:\Users\ABDELRAHMAN\source\repos\Compiler\JASON_Compiler\obj\Debug\Tiny_Compiler.Form1.resources
+C:\Users\ABDELRAHMAN\source\repos\Compiler\JASON_Compiler\obj\Debug\Tiny_Compiler.Form2.resources
+C:\Users\ABDELRAHMAN\source\repos\Compiler\JASON_Compiler\obj\Debug\JASON_Compiler.Properties.Resources.resources
+C:\Users\ABDELRAHMAN\source\repos\Compiler\JASON_Compiler\obj\Debug\Tiny_Compiler.csproj.GenerateResource.cache
+C:\Users\ABDELRAHMAN\source\repos\Compiler\JASON_Compiler\obj\Debug\Tiny_Compiler.csproj.CoreCompileInputs.cache
+C:\Users\ABDELRAHMAN\source\repos\Compiler\JASON_Compiler\obj\Debug\JASON_Compiler.exe
+C:\Users\ABDELRAHMAN\source\repos\Compiler\JASON_Compiler\obj\Debug\JASON_Compiler.pdb
