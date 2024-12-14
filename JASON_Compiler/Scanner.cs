@@ -46,6 +46,7 @@ namespace Tiny_Compiler
             ReservedWords.Add("endl", Token_Class.Endl);
             ReservedWords.Add("then", Token_Class.Then);
             ReservedWords.Add("return", Token_Class.Return);
+            ReservedWords.Add("main", Token_Class.Main);
 
 
             Operators.Add(",", Token_Class.Comma);
