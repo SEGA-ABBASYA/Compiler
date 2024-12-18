@@ -58,7 +58,7 @@ namespace Tiny_Compiler
         {
 
             Node function_statements = new Node("Function_Statements");
-            if (TokenStream[InputPointer + 1].token_type != Token_Class.Main && (TokenStream[InputPointer].token_type == Token_Class.Int || TokenStream[InputPointer].token_type == Token_Class.Float || TokenStream[InputPointer].token_type == Token_Class.String))
+            if (TokenStream[InputPointer + 1].token_type != Token_Class.Main && (TokenStream[InputPointer].token_type == Token_Class.Int || TokenStream[InputPointer].token_type == Token_Class.Float || TokenStream[InputPointer].token_type == Token_Class.ReservedString))
             {
                 function_statements.Children.Add(Function_Statement());
                 function_statements.Children.Add(Function_Statements());
@@ -81,7 +81,7 @@ namespace Tiny_Compiler
             function_declaration.Children.Add(DataType());
             function_declaration.Children.Add(Function_Name());
             function_declaration.Children.Add(match(Token_Class.LParanthesis));
-            if (TokenStream[InputPointer].token_type == Token_Class.Int || TokenStream[InputPointer].token_type == Token_Class.Float || TokenStream[InputPointer].token_type == Token_Class.String)
+            if (TokenStream[InputPointer].token_type == Token_Class.Int || TokenStream[InputPointer].token_type == Token_Class.Float || TokenStream[InputPointer].token_type == Token_Class.ReservedString)
             {
                 function_declaration.Children.Add(Parameters());
             }
@@ -112,7 +112,7 @@ namespace Tiny_Compiler
             Node statements = new Node("Statements");
             Token_Class currToken = TokenStream[InputPointer].token_type;
             if (currToken == Token_Class.Identifier || currToken == Token_Class.Read || currToken == Token_Class.Write || currToken == Token_Class.If || currToken == Token_Class.Repeat
-                || currToken == Token_Class.Int || currToken == Token_Class.Float || currToken == Token_Class.String)
+                || currToken == Token_Class.Int || currToken == Token_Class.Float || currToken == Token_Class.ReservedString)
             {
                 statements.Children.Add(Statement());
                 statements.Children.Add(Statements());
@@ -147,7 +147,7 @@ namespace Tiny_Compiler
                     break;
 
                 case Token_Class.Int:
-                case Token_Class.String:
+                case Token_Class.ReservedString:
                 case Token_Class.Float:
                     statement.Children.Add(Declaration_Statement());
                     break;
@@ -320,8 +320,6 @@ namespace Tiny_Compiler
                     return expression;
                 }
             }
-
-            Token_Class curr_token = TokenStream[InputPointer].token_type;
             expression.Children.Add(Term());
             return expression;
         }

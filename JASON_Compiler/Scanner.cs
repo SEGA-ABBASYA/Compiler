@@ -250,22 +250,8 @@ namespace Tiny_Compiler
                     CurrentLexeme = CurrentChar.ToString();
                     j++;
 
-                    if (j < SourceCode.Length && char.IsDigit(SourceCode[j]))
-                    {
-                        while (j < SourceCode.Length && (char.IsDigit(SourceCode[j]) || SourceCode[j] == '.'))
-                        {
-                            CurrentLexeme += SourceCode[j];
-                            j++;
-                        }
-
-                        FindTokenClass(CurrentLexeme);
-                        i = j - 1;
-                    }
-                    else
-                    {
-                        FindTokenClass(CurrentLexeme);
-                        i = j - 1;
-                    }
+                    FindTokenClass(CurrentLexeme);
+                    i = j - 1;
                 }
 
                 else
