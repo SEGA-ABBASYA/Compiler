@@ -304,28 +304,15 @@ namespace Tiny_Compiler
         Node Expression()
         {
             Node expression = new Node("Expression");
-            if(Token_Class.String == TokenStream[InputPointer].token_type)
-                {
-                expression.Children.Add(match(Token_Class.String));
-            }
-            else
+            if(Token_Class.Number == TokenStream[InputPointer].token_type || Token_Class.Identifier == TokenStream[InputPointer].token_type)
             {
-                if (Token_Class.LParanthesis == TokenStream[InputPointer].token_type)
-                    expression.Children.Add(Equations());
-                else
-                {
-                    if (InputPointer + 1 < TokenStream.Count)
-                    {
-                        if (Token_Class.PlusOp == TokenStream[InputPointer + 1].token_type ||
-                    Token_Class.MinusOp == TokenStream[InputPointer + 1].token_type ||
-                    Token_Class.MultiplyOp == TokenStream[InputPointer + 1].token_type ||
-                    Token_Class.DivideOp == TokenStream[InputPointer + 1].token_type)
-                        {
-                            expression.Children.Add(Equations());
-                        }
-                    }
-                }
-
+                expression.Children.Add(Term());
+            }else if(Token_Class.LParanthesis == TokenStream[InputPointer].token_type)
+            {
+                expression.Children.Add(Equations());
+            }else if(Token_Class.String == TokenStream[InputPointer].token_type)
+            {
+                expression.Children.Add(match(Token_Class.String));
             }
             return expression;
         }
@@ -344,7 +331,7 @@ namespace Tiny_Compiler
                 term_Eq.Children.Add(match(Token_Class.LParanthesis));
                 term_Eq.Children.Add(Equations());
                 term_Eq.Children.Add(match(Token_Class.RParanthesis));
-            }else 
+            }else if (Token_Class.Number == TokenStream[InputPointer].token_type || Token_Class.Identifier == TokenStream[InputPointer].token_type)
             {
                 term_Eq.Children.Add(Term());
             }
@@ -529,10 +516,10 @@ namespace Tiny_Compiler
             }else if (currToken == Token_Class.Float)
             {
                 dataType.Children.Add(match(Token_Class.Float));
+            }else if (currToken == Token_Class.String)
+            {
+                dataType.Children.Add(match(Token_Class.String));
             }
-            else
-                dataType.Children.Add(match(Token_Class.ReservedString));
-            
             return dataType;
         }
         Node Arithmatic_Operator()
@@ -547,7 +534,7 @@ namespace Tiny_Compiler
             }else if (Token_Class.MultiplyOp == TokenStream[InputPointer].token_type)
             {
                 arithmatic_Operator.Children.Add(match(Token_Class.MultiplyOp));
-            }else 
+            }else if (Token_Class.DivideOp == TokenStream[InputPointer].token_type)
             {
                 arithmatic_Operator.Children.Add(match(Token_Class.DivideOp));
             }
