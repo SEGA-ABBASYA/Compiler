@@ -329,7 +329,7 @@ namespace Tiny_Compiler
                 else if (isComment(Lex))
                 {
                     Tok.token_type = Token_Class.Comment;
-                    Tokens.Add(Tok);
+                    //Tokens.Add(Tok);
                 }
                 //Is it an undefined? (Error List)
                 else
