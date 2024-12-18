@@ -30,14 +30,14 @@ namespace Tiny_Compiler
             this.TokenStream = TokenStream;
             root = new Node("Program");
             root.Children.Add(Program());
+            Console.WriteLine("I got here");
             return root;
         }
         Node Program()
         {
             Node program = new Node("Program");
-            program.Children.Add(Main_Function());
             program.Children.Add(Function_Statements());
-            
+            program.Children.Add(Main_Function());
             return program;
         }
         Node Main_Function()
@@ -56,6 +56,7 @@ namespace Tiny_Compiler
 
             Node function_statements = new Node("Function_Statements");
 
+            function_statements.Children.Add(Function_Statement());
             function_statements.Children.Add(Function_Statements2());
 
             return function_statements;
@@ -122,14 +123,19 @@ namespace Tiny_Compiler
         Node Statements()
         {
             Node statements = new Node("Statements");
-            Token_Class currToken = TokenStream[InputPointer].token_type;
-            if (currToken == Token_Class.Identifier || currToken == Token_Class.Read || currToken == Token_Class.Write || currToken == Token_Class.If || currToken == Token_Class.Repeat
-                || currToken == Token_Class.Int || currToken == Token_Class.Float || currToken == Token_Class.String)
-            {
-                statements.Children.Add(Statement());
-                statements.Children.Add(Statements());
-            }
+            statements.Children.Add(Statement());
+            statements.Children.Add(Statements2());
             return statements;
+        }
+        Node Statements2()
+        {
+            Node statements2 = new Node("Statements2");
+            if (TokenStream[InputPointer].token_type == Token_Class.AssignmentOp)
+            {
+                statements2.Children.Add(Statement());
+                statements2.Children.Add(Statements2());
+            }
+            return statements2;
         }
         Node Statement()
         {
@@ -297,7 +303,6 @@ namespace Tiny_Compiler
             Node assignment_Statement = new Node("Assignment_Statement");
             assignment_Statement.Children.Add(match(Token_Class.Identifier));
             assignment_Statement.Children.Add(match(Token_Class.AssignmentOp));
-            assignment_Statement.Children.Add(Expression());
             return assignment_Statement;
 
         }
