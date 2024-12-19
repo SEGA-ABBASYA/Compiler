@@ -160,11 +160,25 @@ namespace Tiny_Compiler
         {
             Node term = new Node("Term");
             if (TokenStream[InputPointer].token_type == Token_Class.Number)
+            {
                 term.Children.Add(match(Token_Class.Number));
-            else if (TokenStream[InputPointer].token_type == Token_Class.Identifier)
+                return term;
+            }
+                
+            if (TokenStream[InputPointer].token_type == Token_Class.Identifier)
+            {
+                if(InputPointer + 1 < TokenStream.Count)
+                {
+                    if (TokenStream[InputPointer + 1].token_type == Token_Class.LParanthesis)
+                    {
+                        term.Children.Add(Function_Call());
+                        return term;
+                    }
+                }
                 term.Children.Add(match(Token_Class.Identifier));
-            else
-                term.Children.Add(Function_Call());
+                return term;
+            }
+            
             return term;
         }
         Node Parameters()
@@ -210,7 +224,7 @@ namespace Tiny_Compiler
         Node Function_Call2()
         {
             Node function_call2 = new Node("Function_Call2");
-            if (TokenStream[InputPointer].token_type == Token_Class.Identifier)
+            if (TokenStream[InputPointer].token_type == Token_Class.Identifier || TokenStream[InputPointer].token_type == Token_Class.Number)
             {
                 function_call2.Children.Add(IdList());
             }
@@ -221,7 +235,7 @@ namespace Tiny_Compiler
         Node IdList()
         {
             Node idList = new Node("IdList");
-            idList.Children.Add(match(Token_Class.Identifier));
+            idList.Children.Add(Term());
             if (TokenStream[InputPointer].token_type == Token_Class.Comma)
                 idList.Children.Add(IdList2());
 
@@ -233,7 +247,7 @@ namespace Tiny_Compiler
             if (TokenStream[InputPointer].token_type == Token_Class.Comma)
             {
                 idList2.Children.Add(match(Token_Class.Comma));
-                idList2.Children.Add(match(Token_Class.Identifier));
+                idList2.Children.Add(Term());
                 idList2.Children.Add(IdList2());
             }
 
