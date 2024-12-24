@@ -161,6 +161,7 @@ namespace Tiny_Compiler
             Node term = new Node("Term");
             if (TokenStream[InputPointer].token_type == Token_Class.Number)
             {
+
                 term.Children.Add(match(Token_Class.Number));
                 return term;
             }
@@ -178,7 +179,8 @@ namespace Tiny_Compiler
                 term.Children.Add(match(Token_Class.Identifier));
                 return term;
             }
-            
+            //term.Children.Add(match(Token_Class.Identifier));
+            Errors.Error_List.Add("Parsing Error : Expected Identifer or Number or Funciton Call.\n");
             return term;
         }
         Node Parameters()
