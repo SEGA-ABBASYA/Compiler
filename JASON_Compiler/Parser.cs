@@ -114,8 +114,25 @@ namespace Tiny_Compiler
         {
             Node statements = new Node("Statements");
             Token_Class currToken = TokenStream[InputPointer].token_type;
+            if (currToken == Token_Class.Return) {
+                int temp = InputPointer;
+                while (temp < TokenStream.Count)
+                {
+                    if (TokenStream[temp].token_type == Token_Class.Semicolon)
+                    {
+                        temp++;
+                        if (TokenStream[temp].token_type == Token_Class.RPracket)
+                        {
+                            return null;
+                        }
+                        break;
+                    }
+                    temp++;
+                }
+            }
+            
             if (currToken == Token_Class.Identifier || currToken == Token_Class.Read || currToken == Token_Class.Write || currToken == Token_Class.If || currToken == Token_Class.Repeat
-                || currToken == Token_Class.Int || currToken == Token_Class.Float || currToken == Token_Class.ReservedString)
+                || currToken == Token_Class.Int || currToken == Token_Class.Float || currToken == Token_Class.ReservedString || currToken == Token_Class.Return)
             {
                 statements.Children.Add(Statement());
                 statements.Children.Add(Statements());
@@ -304,9 +321,7 @@ namespace Tiny_Compiler
             return idDecl;
         }
 
-        //ABDALLAH STARTS HERE
-
-        // Implement your logic here
+       
         Node Assignment_Statement()
         {
             Node assignment_Statement = new Node("Assignment_Statement");
@@ -573,12 +588,6 @@ namespace Tiny_Compiler
             }
             return  arithmatic_Operator; 
         }
-
-
-
-
-
-
 
         public Node match(Token_Class ExpectedToken)
         {
