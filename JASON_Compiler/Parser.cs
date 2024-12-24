@@ -40,7 +40,10 @@ namespace Tiny_Compiler
             if (TokenStream[InputPointer + 1].token_type != Token_Class.Main)
                 program.Children.Add(Function_Statements());
             program.Children.Add(Main_Function());
-
+            if (InputPointer < TokenStream.Count)
+            {
+                Errors.Error_List.Add("Functions Found Below The Main\n");
+            }
             return program;
         }
         Node Main_Function()
@@ -145,9 +148,11 @@ namespace Tiny_Compiler
                 case Token_Class.Repeat:
                     statement.Children.Add(Repeat_Statement());
                     break;
-
+                case Token_Class.Return:
+                    statement.Children.Add(Return_Statement());
+                    break;
                 case Token_Class.Int:
-                case Token_Class.ReservedString:
+                case Token_Class.ReservedString:               
                 case Token_Class.Float:
                     statement.Children.Add(Declaration_Statement());
                     break;
@@ -166,7 +171,7 @@ namespace Tiny_Compiler
                 return term;
             }
                 
-            if (TokenStream[InputPointer].token_type == Token_Class.Identifier)
+            if (TokenStream[InputPointer].token_type == Token_Class.Identifier && InputPointer  < TokenStream.Count)
             {
                 if(InputPointer + 1 < TokenStream.Count)
                 {
@@ -404,6 +409,10 @@ namespace Tiny_Compiler
         Node Return_Statement()
         {
             Node return_statement = new Node("Return_Statement");
+            if (TokenStream[InputPointer].token_type != Token_Class.Return) {
+                Errors.Error_List.Add("No Return Statement Found sadly");
+                return null;
+            }
             return_statement.Children.Add(match(Token_Class.Return));
             return_statement.Children.Add(Expression());
             return_statement.Children.Add(match(Token_Class.Semicolon));
@@ -463,6 +472,7 @@ namespace Tiny_Compiler
             repeat_statement.Children.Add(match(Token_Class.Until));
             repeat_statement.Children.Add(Condition_Statement());
             return repeat_statement;
+            // return;
         }
         Node Condition_Statement()
         {
