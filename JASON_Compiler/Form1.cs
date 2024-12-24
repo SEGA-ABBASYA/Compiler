@@ -55,6 +55,14 @@ namespace Tiny_Compiler
             treeView1.Nodes.Clear();
             Errors.Error_List.Clear();
         }
-        
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            textBox2.Text = "";
+            TINY_Compiler.TokenStream.Clear();
+            dataGridView1.Rows.Clear();
+            treeView1.Nodes.Clear();
+            Errors.Error_List.Clear();
+        }
     }
 }
