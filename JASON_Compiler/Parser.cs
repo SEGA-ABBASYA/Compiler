@@ -113,6 +113,10 @@ namespace Tiny_Compiler
         Node Statements()
         {
             Node statements = new Node("Statements");
+            if (InputPointer >= TokenStream.Count) {
+                Errors.Error_List.Add("Missing Right Pracet");
+                return null;
+            }
             Token_Class currToken = TokenStream[InputPointer].token_type;
             if (currToken == Token_Class.Return) {
                 int temp = InputPointer;
@@ -121,7 +125,7 @@ namespace Tiny_Compiler
                     if (TokenStream[temp].token_type == Token_Class.Semicolon)
                     {
                         temp++;
-                        if (TokenStream[temp].token_type == Token_Class.RPracket)
+                        if (temp < TokenStream.Count && TokenStream[temp].token_type == Token_Class.RPracket  )
                         {
                             return null;
                         }
@@ -423,14 +427,40 @@ namespace Tiny_Compiler
         }
         Node Return_Statement()
         {
+            //Node return_statement = new Node("Return_Statement");
+
+            //if (TokenStream[InputPointer].token_type != Token_Class.Return) {
+
+            //    Errors.Error_List.Add("No Return Statement Found sadly");
+            //    return null;
+            //}
+            //return_statement.Children.Add(match(Token_Class.Return));
+            //return_statement.Children.Add(Expression());
+            //return_statement.Children.Add(match(Token_Class.Semicolon));
+            //return return_statement;
             Node return_statement = new Node("Return_Statement");
-            if (TokenStream[InputPointer].token_type != Token_Class.Return) {
-                Errors.Error_List.Add("No Return Statement Found sadly");
+
+            if (InputPointer >= TokenStream.Count || TokenStream[InputPointer].token_type != Token_Class.Return)
+            {
+                Errors.Error_List.Add("Expected 'return' statement.\n");
                 return null;
             }
             return_statement.Children.Add(match(Token_Class.Return));
+
+            if (InputPointer >= TokenStream.Count)
+            {
+                Errors.Error_List.Add("Unexpected end of input after 'return'");
+                return return_statement;
+            }
             return_statement.Children.Add(Expression());
+
+            if (InputPointer >= TokenStream.Count || TokenStream[InputPointer].token_type != Token_Class.Semicolon)
+            {
+                Errors.Error_List.Add("Expected ';' after return statement");
+                return null;
+            }
             return_statement.Children.Add(match(Token_Class.Semicolon));
+
             return return_statement;
         }
         Node If_Statement()
@@ -450,16 +480,20 @@ namespace Tiny_Compiler
             if (curr_type == Token_Class.Elseif)
             {
                 else_word.Children.Add(Else_If_Statement());
+                return else_word;
             }
             else if (curr_type == Token_Class.Else)
             {
                 else_word.Children.Add(Else_Statement());
+                return else_word;
             }
             else if (curr_type == Token_Class.End)
             {
                 else_word.Children.Add(match(Token_Class.End));
+                return else_word;
             }
-            return else_word; 
+            Errors.Error_List.Add("No End Found.\n");
+            return else_word;
         }
         Node Else_If_Statement()
         {
